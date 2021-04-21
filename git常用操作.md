@@ -1,0 +1,41 @@
+1. 初始化本地仓库
+
+   ```
+   ##选中你需要git 管理的项目使用如下命令,生成.git文件
+   git init
+   ```
+
+   
+
+2.  将文件添加到缓存区
+
+   ```
+   git add .
+   ```
+
+3. 将文件添加到本地仓库
+
+   ```
+   git commit -m '注释'
+   ```
+
+4. 关联远程库
+
+   ```
+   https://github.com/Adopat/Python-tutorial.git
+   ```
+
+5. 将本地库内容推送到远程
+
+   ```
+   git push -u origin master
+   ```
+
+> 注意 将本地库内容推送到远程时可能会提示输入用户名密码使用以下方式解决，改用SSH提交
+
+```
+git remote rm origin
+git remote add origin SSH  （注意此ssh是你的ssh地址）
+git push -u origin master
+```
+
