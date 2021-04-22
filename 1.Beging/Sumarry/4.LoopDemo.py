@@ -95,5 +95,14 @@ def fibonacci(n):
         a ,b = b, a+b
 for fib in fibonacci(10):
     print(fib)
+print("=====短路运算=====")
+# 9. 短路原则  布尔运算符 and 和 or 称为短路运算，它们的参数从左至右解析
+# A and B : 如果 A不成立，B 不执行
+# A or B : 如果A成立 B 不执行
+a = 0
+print(a and  "helloworld") #  0 a = 0 False  A 不成立 B 不执行
+a = 'aaa'
+print(a or 'bbb') # aaa A成立 b 不执行
+
 
 
