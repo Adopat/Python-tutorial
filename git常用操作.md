@@ -1,4 +1,23 @@
-1. 初始化本地仓库
+1. 下载 git 安装
+
+   ```
+   # 1. 设置用户名
+   git config --global user.name "Your GitHub Name"
+   # 2. 设置邮箱
+   git config --global user.email "注册GitHub邮箱"
+   # 3. 查看当前登录邮箱
+   git config user.name
+   # 4. 查看当前登录账号
+   git config user.name
+   # 5. 修改用户名
+   git config --global user.name "Your Name"
+   # 6. 修改邮箱
+   git config --global user.email "Your email"
+   ```
+
+   
+
+2. 初始化本地仓库
 
    ```
    ##选中你需要git 管理的项目使用如下命令,生成.git文件
@@ -7,25 +26,37 @@
 
    
 
-2.  将文件添加到缓存区
+3. 生成 ssh 用于 GitHub验证
+
+   ```
+   在命令框中输入 $ ssh-keygen -t rsa -C "email@example.com" 按三次回车生成公钥，在C:\Users\Administrator.ssh下找到id_rsa.pub文件，记事本打开复制公钥。
+   当然这里也是有提示的。
+   然后在 github 中设置SSH 
+   验证是都配置成功：
+   ssh - T git@github.com
+   ```
+
+   
+
+4. 将文件添加到缓存区
 
    ```
    git add .
    ```
 
-3. 将文件添加到本地仓库
+5. 将文件添加到本地仓库
 
    ```
    git commit -m '注释'
    ```
 
-4. 关联远程库
+6. 关联远程库
 
    ```
    git remote add origin https://github.com/Adopat/Python-tutorial.git
    ```
 
-5. 将本地库内容推送到远程
+7. 将本地库内容推送到远程
 
    ```
    git push -u origin master
