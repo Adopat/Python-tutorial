@@ -13,8 +13,8 @@ def request_dangdang(url):
             return response.text
     except requests.RequestException:
         return None
-url = 'http://bang.dangdang.com/books/fivestars/1-1'
-content = request_dangdang(url)
+# url = 'http://bang.dangdang.com/books/fivestars/1-1'
+# content = request_dangdang(url)
 # 分析页面
 def parse_result(content):
     soup = BeautifulSoup(content,'lxml')
