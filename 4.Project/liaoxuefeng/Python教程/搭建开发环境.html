@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="x-wiki-content x-main-content"><p>使用MicroPython开发机器人，我们首先要搭建一个开发环境。和运行在桌面或服务器的纯软件环境不同的是，我们得有一个硬件开发环境。可以选择树莓派+Arduino控制板，但是搭建机器人需要的零件比较复杂。作为教程，我们选择乐高EV3机器人作为开发环境，因为乐高机器人搭建非常容易，并且乐高的EV3控制器是一个完整的ARM系统。</p>
+<p>那么问题来了：如果你没有乐高EV3怎么办？</p>
+<p>戳这里：EV3教育版淘宝<a href="https://s.click.taobao.com/PeMmziv">链接1</a>、<a href="https://s.click.taobao.com/VsKmziv">链接2</a>，EV3零售版淘宝<a href="https://s.click.taobao.com/UMLmziv">链接1</a>、<a href="https://s.click.taobao.com/PuMmziv">链接2</a>。教育版建议买45544+45560套装，零售版就只有31313一种。没有MicroSD卡的可以顺手入一个MicroSD卡+读卡器，还可以再选购一个蓝牙游戏手柄，后面用得到。</p>
+<p>乐高官方提供了一个完整的EV3运行时镜像，该镜像内置了MicroPython，可以非常方便地运行Python程序。需要从乐高官网<a href="https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3">下载镜像</a>到本地，然后写入到MicroSD卡。Windows和Mac系统可以使用<a href="https://www.balena.io/etcher/">Etcher</a>写入镜像到MicroSD卡，也可以使用<code>dd</code>命令写入。</p>
+<p>插入SD卡后启动EV3控制器，等待1~2分钟，启动成功后，即可选择“Wireless and Networks”连接电脑：</p>
+<p><img alt="ev3startup" data-src="/files/attachments/1346188160794690/l" src="/static/img/loading.svg"/></p>
+<p>使用无线网连接需要额外的USB无线网卡，强烈推荐选择蓝牙连接，因为EV3内置了蓝牙模块。配对并连接成功后，可以在电脑上看到已连接的蓝牙设备EV3。</p>
+<p>可以直接使用SSH登录EV3，因为这个自带MicroPython的EV3镜像是一个裁剪后的Debian Linux系统。我们用命令<code>ssh robot@ev3dev.local</code>登录，密码是<code>maker</code>：</p>
+<pre><code>$ ssh robot@ev3dev.local
+Password: *****
+Linux ev3dev 4.14.96-ev3dev-2.3.2-ev3 #1 PREEMPT Sun Jan 27 21:27:35 CST 2019 armv5tejl
+             _____     _
+   _____   _|___ /  __| | _____   __
+  / _ \ \ / / |_ \ / _` |/ _ \ \ / /
+ |  __/\ V / ___) | (_| |  __/\ V /
+  \___| \_/ |____/ \__,_|\___| \_/
+
+Debian stretch on LEGO MINDSTORMS EV3!
+Last login: Mon Mar  4 18:05:04 2019 from f81e::a7:c54d:4e0b:3af7%bnep0
+robot@ev3dev:~$ ls /usr/lib/micropython/
+README           fcntl.mpy      mailbox.mpy          reprlib.mpy       trace.mpy
+README.rst       ffilib.mpy     mailcap.mpy          runpy.mpy         traceback.mpy
+__future__.mpy   fnmatch.mpy    mimetypes.mpy        sched.mpy         tty.mpy
+_libc.mpy        formatter.mpy  multiprocessing.mpy  sdist_upip.mpy    types.mpy
+_markupbase.mpy  fractions.mpy  nntplib.mpy          select.mpy        typing.mpy
+abc.mpy          ftplib.mpy     numbers.mpy          selectors.mpy     uaiohttpclient.mpy
+argparse.mpy     functools.mpy  operator.mpy         shelve.mpy        uasyncio
+base64.mpy       getopt.mpy     optparse.mpy         shlex.mpy         uasyncio.mpy
+binascii.mpy     getpass.mpy    os                   shutil.mpy        ucontextlib.mpy
+binhex.mpy       gettext.mpy    pathlib.mpy          signal.mpy        ucurses
+bisect.mpy       glob.mpy       pdb.mpy              smtplib.mpy       udnspkt.mpy
+calendar.mpy     gzip.mpy       pickle.mpy           socket.mpy        umqtt
+cgi.mpy          hashlib        pickletools.mpy      socketserver.mpy  unicodedata.mpy
+cmd.mpy          heapq.mpy      pkg_resources.mpy    sqlite3.mpy       unittest.mpy
+code.mpy         hmac.mpy       pkgutil.mpy          ssl.mpy           upip.mpy
+codecs.mpy       html           platform.mpy         stat.mpy          upip_utarfile.mpy
+codeop.mpy       http           poplib.mpy           statistics.mpy    upysh.mpy
+collections      imaplib.mpy    posixpath.mpy        string.mpy        urequests.mpy
+concurrent       imp.mpy        pprint.mpy           stringprep.mpy    urllib
+contextlib.mpy   importlib.mpy  profile.mpy          struct.mpy        urllib.mpy
+copy.mpy         inspect.mpy    pty.mpy              subprocess.mpy    utarfile.mpy
+csv.mpy          io.mpy         pwd.mpy              sys.mpy           uu.mpy
+curses           ipaddress.mpy  pyb.mpy              tarfile.mpy       uuid.mpy
+datetime.mpy     itertools.mpy  pystone.mpy          telnetlib.mpy     venv.mpy
+dbm.mpy          json           pystone_lowmem.mpy   tempfile.mpy      warnings.mpy
+decimal.mpy      keyword.mpy    queue.mpy            test              weakref.mpy
+difflib.mpy      linecache.mpy  quopri.mpy           textwrap.mpy      xmltok.mpy
+email            locale.mpy     random.mpy           threading.mpy     zipfile.mpy
+errno.mpy        logging.mpy    re.mpy               time.mpy          zlib.mpy
+ev3dev2          machine        readline.mpy         timeit.mpy
+</code></pre>
+<p>在<code>/usr/lib/micropython/</code>目录下可以看到系统自带的Python库。MicroPython并不直接运行<code>.py</code>文件，而是运行<code>.mpy</code>这个紧凑的二进制文件。</p>
+<p>要开发EV3机器人程序，我们还需要搭建一个开发环境。Visual Studio Code是强烈推荐的开发环境，并且，乐高官方推出了一个VSCode扩展，可以方便地开发并远程调试应用程序。在VS Code的扩展中搜索<code>lego</code>并安装<code>LEGO® MINDSTORMS® EV3 MicroPython</code>扩展：</p>
+<p><img alt="vscode-ev3" data-src="/files/attachments/1346189421183041/l" src="/static/img/loading.svg"/></p>
+<p>安装扩展后，我们就可以开始开发运行在EV3上的Python程序。在VS Code左侧面板选择Lego图标，选择“Create a new project”：</p>
+<p><img alt="vscode-ev3-new-project" data-src="/files/attachments/1346190218100802/l" src="/static/img/loading.svg"/></p>
+<p>我们创建一个<code>hellorobot</code>的工程，EV3插件自动为我们创建了一个包含样板代码的<code>main.py</code>：</p>
+<pre><code>#!/usr/bin/env pybricks-micropython
+
+from pybricks import ev3brick as brick
+from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor, InfraredSensor, UltrasonicSensor, GyroSensor)
+from pybricks.parameters import (Port, Stop, Direction, Button, Color, SoundFile, ImageFile, Align)
+from pybricks.tools import print, wait, StopWatch
+from pybricks.robotics import DriveBase
+
+# Write your program here
+brick.sound.beep()
+</code></pre>
+<p>首行的注释表示运行环境是MicroPython，然后自动导入了EV3所需的所有控制API。<code>brick.sound.beep()</code>用于控制EV3的扬声器发出一声“哔”的声音。</p>
+<p>我们可以编写任意的Python源码文件，但执行时注意程序入口永远是<code>main.py</code>。</p>
+<p>在VS Code中，找到<code>EV3DEV DEVICE BROWSER</code>，点击<code>ev3dev</code>，连接后图标显示为绿色：</p>
+<p><img alt="ev3-dev-manager" data-src="/files/attachments/1346267955331105/l" src="/static/img/loading.svg"/></p>
+<p>接下来，我们就可以直接切换到Run面板，点击<code>RUN</code>运行，在<code>OUTPUT</code>面板中看到输出结果：</p>
+<p><img alt="ev3-run" data-src="/files/attachments/1346268110520386/l" src="/static/img/loading.svg"/></p>
+<p>注意到VS Code是一个开发环境，我们在电脑上并没有安装MicroPython，整个程序是通过蓝牙网络先传输到EV3主机，再执行，最后取回输出结果显示在VS Code中，因此，这是一个远程执行并允许调试的功能。<code>print()</code>函数可以输出到VS Code，主要作为调试使用，<code>brick.display.text()</code>则是输出到EV3的主机屏幕上。</p>
+<p>这样，我们就把连接EV3的整个MicroPython开发环境搭建好了。</p>
+<h3>参考源码</h3>
+<p><a href="https://github.com/michaelliao/learn-python3/tree/master/samples/micropython/hellorobot">hellorobot</a></p>
+</div>
+</body>
+</html>
