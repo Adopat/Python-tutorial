@@ -50,5 +50,5 @@ for i in range(1000):
     #     left +=1
     #     temp = '{:{display_width}}{:<}'
 result +='</body>'
-with open("../4.1Spyder/anime.html", 'w') as f:
+with open("anime.html", 'w') as f:
     f.write(result)
