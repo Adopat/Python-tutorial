@@ -136,7 +136,7 @@ def parse_html_to_pdf():
             ctitle = chapter['title']
             url = chapter['url']
             # 文件夹不存在则创建（多级目录）
-            dir_name = os.path.join(os.path.dirname(__file__), 'gen', ctitle)
+            dir_name = os.path.join(os.path.dirname(__file__), '../gen', ctitle)
             if not os.path.exists(dir_name):
                 os.makedirs(dir_name)
 
@@ -170,7 +170,7 @@ def merge_pdf(infnList, outfn):
         # 先合并一级目录的内容
         first_level_title = pdf['title']
         dir_name = os.path.join(os.path.dirname(
-            __file__), 'gen', first_level_title)
+            __file__), '../gen', first_level_title)
         padf_path = os.path.join(dir_name, first_level_title + '.pdf')
 
         pdf_input = PdfFileReader(open(padf_path, 'rb'))
@@ -207,7 +207,7 @@ def merge_pdf(infnList, outfn):
     # 合并
     pdf_output.write(open(outfn, 'wb'))
     # 删除所有章节文件
-    shutil.rmtree(os.path.join(os.path.dirname(__file__), 'gen'))
+    shutil.rmtree(os.path.join(os.path.dirname(__file__), '../gen'))
 
 def main():
     html = get_one_page(base_url)
