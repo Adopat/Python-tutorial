@@ -47,15 +47,15 @@ def main():
         parse_result(content)
         sleep(random.uniform(1, 10))
         print(f'第{i+1}页爬取完成。。。')
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+    #main()
 print('=====根据爬取结果生成词云=====')
 # 结巴分词使用停用词
 import jieba,numpy
 from PIL import Image
 from wordcloud import WordCloud, STOPWORDS
 import collections
-with open('唐探3.txt','r',encoding='utf-8') as f:
+with open('唐探3切词.txt','r',encoding='utf-8') as f:
     words = f.read()
 new_words = ' '.join(jieba.cut(words))
 word_counts  = collections.Counter(new_words) # 统计切词后，每个词出现的次数
