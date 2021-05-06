@@ -1,10 +1,10 @@
-# # 爬取三国演义，并用词云图展示关键信息
-# import requests
-# from fake_useragent import UserAgent
-# from requests.exceptions import RequestException
-# from bs4 import BeautifulSoup
-# from time import sleep
-# import random
+#爬取三国演义，并用词云图展示关键信息
+import requests
+from fake_useragent import UserAgent
+from requests.exceptions import RequestException
+from bs4 import BeautifulSoup
+from time import sleep
+import random
 # def get_one_page(url):
 #     """
 #     获取网页html内容并返回
@@ -25,7 +25,7 @@
 #     except RequestException as e:
 #         return None
 # base_url = 'http://www.shicimingju.com/book/sanguoyanyi.html'
-# # 获取所有目录链接
+# 获取所有目录链接
 # def parse_result(content):
 #     soup = BeautifulSoup(content,'lxml')
 #     menu_list = soup.find('div',class_='book-mulu').find('ul').find_all('li')
@@ -37,51 +37,75 @@
 #         new_menu_list.append(menu_dic)
 #     return new_menu_list
 # content = get_one_page(base_url)
-# # print(content)
-# # new_memu_list = parse_result(content)
-# # print(new_memu_list)
-# # for i in new_memu_list:
-# #     content = get_one_page(i['url'])
-# #     soup = BeautifulSoup(content,'lxml')
-# #     content_list = soup.find('div',class_='card bookmark-list')
-# #     print(content_list)
-#
-# response = requests.get(base_url)
-# print(response.status_code)
+# new_memu_list = parse_result(content)
 
-
-import requests
-from bs4 import BeautifulSoup
-
-'''
-    解析流程:
-        1.pip install bs4
-        2.导包:from bs4 import BeautifulSoup
-        3.实例化一个BeautifulSoup对象(将页面源码数据加载到该对象中)
-        4.调用BeautifulSoup对象中的相关属性和方法进行标签的定位
-'''
-
-url='http://www.shicimingju.com/book/sanguoyanyi.html'
-
-headers={
-    'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.20 Safari/537.36'
-}
-
-page_data=requests.get(url=url,headers=headers).text
-
-#实例化一个BeautifulSoup对象
-soup=BeautifulSoup(page_data,'lxml')
-li_list=soup.select('."book-mulu" > ul > li')
-
-fp=open('三国演义.txt','w',encoding='utf8')
-
-for li in li_list:
-    url='http://www.shicimingju.com'+li.a['href']
-    section_page_data=requests.get(url=url,headers=headers).text
-
-    soup=BeautifulSoup(section_page_data,'lxml')
-    section_title=soup.select('.www-main-container > h1')[0].string
-    section_content=soup.find('div',class_="chapter_content").text
-    fp.write(section_title+'\n'+section_content+'\n\n')
-    print(section_title+'\t'+'下载完成')
-fp.close()
+# for i in new_memu_list:
+#     content = get_one_page(i['url'])
+#     soup = BeautifulSoup(content,'lxml')
+#     content_list = soup.find('div',class_='card bookmark-list')
+#     with open('三国演义.txt','a',encoding='utf-8') as f:
+#         f.write(i['title']+'\n'+content_list.text+'\n')
+#     print(i['title']+'爬取完毕')
+#     sleep(random.uniform(5, 10))
+#将三国演义文件生成 词云看看主要内容是什么
+# import jieba
+# import collections
+# # 加载停用词
+# def stopwordslist(filepath):
+#     stopwords = [line.strip() for line in open(filepath,'r',encoding='utf-8').readlines()]
+#     return stopwords
+# # 对句子进行分词
+# def seg_sentence(sentence):
+#     jieba.load_userdict("cidian1.txt") # 加载自定义字典
+#     sentence_seged = jieba.cut(sentence.strip())
+#     stopwords = stopwordslist(r'hit_stopwords.txt')
+#     outstr = ""
+#     for word in sentence_seged:
+#         if word not in stopwords:
+#             if word!='\t':
+#                 outstr +=word
+#                 outstr +=" "
+#     return outstr
+# with open(r'三国演义.txt','r',encoding='utf-8') as f:
+#     for line in f:
+#         lien_seg = seg_sentence(line.replace(' ','').replace('\u3000',''))
+#         with open(r'三国演义切词.txt','a',encoding='utf-8') as fq:
+#             fq.write(lien_seg)
+# # 统计切词后的词频
+# with open(r'三国演义切词.txt','r',encoding='utf-8') as f:
+#     # data = jieba.cut(f.read().replace('...','').replace('\n','').replace(" ",'').replace('，','').replace('。','').replace('\xa0',''))
+#     data = jieba.cut(f.read())
+# data = dict(collections.Counter(data).most_common(10))
+# print(data)
+print('========将切词后的结果生成词云========')
+import jieba,numpy
+from PIL import Image
+from wordcloud import WordCloud, STOPWORDS
+import collections
+with open('三国演义切词.txt','r',encoding='utf-8') as f:
+    words = f.read()
+new_words = ' '.join(jieba.cut(words))
+word_counts  = collections.Counter(new_words) # 统计切词后，每个词出现的次数
+print('前10词:',word_counts.most_common(15))
+STOPWORDS.add('不')
+STOPWORDS.add('人')
+STOPWORDS.add('之')
+STOPWORDS.add('一')
+STOPWORDS.add('道')
+STOPWORDS.add('子')
+STOPWORDS.add('大')
+STOPWORDS.add('王')
+STOPWORDS.add('以')
+STOPWORDS.add('上')
+STOPWORDS.add('中')
+STOPWORDS.add('十')
+STOPWORDS.add('下')
+STOPWORDS.add('来')
+wordcloud = WordCloud(width=1000,
+                      height=860,
+                      margin=2,
+                      background_color='#d4ff80',# 设置背景颜色
+                      font_path=r'C:\Windows\Fonts\STSONG.TTF',
+                      stopwords=STOPWORDS)
+wordcloud.generate(new_words)
+wordcloud.to_file('三国演义.jpg')
