@@ -80,4 +80,5 @@ git remote add origin https://github.com/Adopat/Python-tutorial.git
 git pull origin master  //把本地仓库的变化连接到远程仓库master分支，用于同步
 git push -u origin master  //把本地仓库的文件推送到远程仓库master 分支
 ```
-
+pip freeze>requirements.txt  -- 生成requirements.txt 文件
+pip install -r requirements.txt -- 安装 requirements.txt 文件中的安装包
