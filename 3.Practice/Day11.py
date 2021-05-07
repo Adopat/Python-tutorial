@@ -57,7 +57,7 @@ print("=====Question55=====")
 Write a program which accepts a sequence of words separated by whitespace as input to print the words composed of digits only.
 '''
 import re
-email = input()#justin 123 nvtpower.com1 999
+email = input()#justin 123 qq.com1 999
 pattern = r"\d+"
 ans = re.findall(pattern,email)
 print(ans)#['123', '1', '999']
