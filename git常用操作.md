@@ -32,11 +32,13 @@
    在命令框中输入 $ ssh-keygen -t rsa -C "email@example.com" 按三次回车生成公钥，在C:\Users\Administrator.ssh下找到id_rsa.pub文件，记事本打开复制公钥。
    当然这里也是有提示的。
    然后在 github 中设置SSH 
+   将Key添加到ssh-agent
+   ssh-add ~/.ssh/id_rsa
    验证是都配置成功：
    ssh - T git@github.com
    ```
 
-   
+   > ssh-keygen -C "email@example.mail" -t rsa linux 命令
 
 4. 将文件添加到缓存区
 
