@@ -31,139 +31,92 @@ def extract_table_name_from_sql(sql_str):
     return result
 
 sql2="""
-进行中任务:
-load
-*
-;
 select
-	zt.id as 任务id,
-	concat('http://172.18.20.83/zentaopdm/www/task-view-',zt.id,'.html') as 单据链接,
-	zt.project as 所属项目id,
-	zp.name as 所属项目,
-	zt.module as 所属模块id,
-	zm.name as 所属模块,
-	if(zm.parent=0,null,zm.parent) as 所属上一级模块id,
-	zm1.name as 所属上一级模块,
-	zt.story as 相关需求id,
-	zs.branch as 分支id,  /*通过需求获取分支ID*/
-	zb2.name as 分支,
-	zs.sourceNote as 需求提出者,
-    zs.playtime as 需求截止时间,
-	zt.name as 任务名称,
-	zt.type as 任务类型id,
-	(case zl.value
-	when '支持&amp;结项' then '支持&结项'
-	when '培训&amp;上线' then '培训&上线'
-	else zl.value
-	end
-	)as 任务类型,
-	zt.pri as 优先级,
-	zt.estimate as 最初预计,
-	zt.consumed as 总计消耗,
-	zt.estStarted as 预计开始,
-    zt.realStarted as 实际开始,
-	zt.deadline as 截止日期,
-	zt.status as 任务状态id,
+	zs.id as 需求id,
+	concat('http://172.18.20.83/zentaopdm/www/story-view-',zs.id,'.html') as 需求链接,
+	zs.title as 需求名称,
+	zs.pri as 优先级,
+	b.tasknum as 任务数,
+	zs.source as 需求来源,
+	zl.value as 需求来源组别,
+	zs.sourceNote as 提出者,
+	zs.stage as 所处阶段id,
+	zl2.value as 所处阶段名称,
+	zs.status as 当前状态id,
 	(case
-		zt.status
-		when 'done' then '已完成'
-		when 'wait' then '未开始'
-		when 'closed' then '已关闭'
-		when 'cancel' then '已取消'
-		when 'doing' then '进行中'
-        when 'pause' then '已暂停'
-		else '其他' end) as 任务状态,
-	zt.openedBy as 由谁创建id,
-	zu1.realname as 由谁创建,
-	zt.openedDate as 创建日期,
-	zt.assignedTo as 指派给,
-	if( zt.assignedTo ='closed','closed',zu.realname) as 指派者姓名,
-	zu.dept as 指派者部门,
-	zu.team as 指派者团队,
-	zu.role as 指派者职位id,
-	zl2.value as 指派者职位,
-	zd.name as 部门名称,
-	if(isnull(zd.name)=0,(case
-		zd.name
-		when 'ITAD' then 'ITAD'
-		when 'ITPS' then 'ITPS'
-		when 'ITBP' then 'ITBP'
-		when '业务顾问' then '业务顾问'
-		when '开发顾问' then '开发顾问'
-		when '测试顾问' then '测试顾问'
-		 when 'EPA' then 'EPA'
-        when 'ITMO' then 'ITMO'
-        when 'NVT-IT' then 'NVT-IT'
-        when 'PTL-IT' then 'PTL-IT'
-        when '设计开发组' then '设计开发组'// update by ZhongRF 20210529
-        when '基础架构组' then '基础架构组'
-        when '业务实施组' then '业务实施组'
-        when '运维服务组' then '运维服务组'    
-		else '业务部门' end),zd.name) as 所属组别,	
-	zt.assignedDate as 指派日期,
-	zt.finishedBy as 由谁完成id,
-	zu2.realname as 由谁完成,
-	zt.finishedDate as 实际完成,
-	zt.canceledBy as 由谁取消,
-	zt.canceledDate as 取消时间,
-	zt.closedBy as 由谁关闭id,
-	zu3.realname as 由谁关闭,
-	zt.closedDate as 关闭时间,
-	zt.closedReason as 关闭原因,
-	b.BUG数量 as BUG数量,
-	b.severity as BUG级别,
-	zp1.id as 产品id,
-	zp1.name as 产品名称,
-	(case zp1.line
+	zs.status
+	when 'draft' then '未开始'
+	when 'active' then '进行中'
+	when 'closed' then '已关闭'
+	when 'changed' then '已变更'
+	else ''
+	end) as 当前状态,
+	zs.openedBy as 创建者工号,
+	zu3.realname as 创建者,
+	zs.openedDate as 创建日期,
+	zs.assignedTo as 指派者id,
+	if(zs.assignedTo ='closed','closed',zu.realname) as 指派者,
+	zs.storyBP as 需求BP工号,
+	zu4.realname as 需求BP,
+	zd.name as 需求BP组别,
+	zs.branch as 分支,
+	zb.name as 分支名称, 
+	zs.closedBy as 由谁关闭工号,
+	zu2.realname as 由谁关闭,
+	zs.closedDate as 关闭日期,
+	zs.product as 产品名称id,
+	zp.name as 所属产品,
+	zp.line as 产品线id,
+	(case 
+	zp.line 
 	when 160 then 'IT智慧平台'
-	when 161 then '集团ETE流程' 
-	end) as 产品线,
-	zt.develuser as 开发人员id,
-	zu4.realname as 开发人员,
-	zt.develscore as 开发质量分	
+	when 161 then '集团ETE流程'
+	end
+	)as 产品线,
+	zp3.project as 所属项目id,
+	zp4.name as 所属项目,
+	zs.plan as 所属计划,
+	zp2.title as 计划标题,
+	zs.module as 所属模块id,
+	zm.name as 所属模块,
+	zs.deadline as 期望完成,
+	zs.playtime as 计划交付,
+	// 增加 设计截止 开发截止 系统测试截止 BP测试截止 用户测试截止 20210603 zhongrf
+	zs.sysdeadline as 设计截止,
+	zs.devdeadline as 开发截止,
+	zs.testdeadline as 系统测试截止,
+	zs.bpdeadline as BP测试截止,
+	zs.userdeadline as 用户测试截止,
+	zs.storyClass as 需求类别id,
+	zs.closedReason as 关闭原因id,
+	zl_closedReason.value as 关闭原因,
+	(case
+	zs.storyClass
+	when 'createFea' then '新增功能'
+	when 'PerformanceUpg' then '性能提升'
+	when 'FeaturesOpt' then '功能优化'
+	when 'questionDeal' then '问题处理'
+	else zs.storyClass
+	end) as 需求类别
 from
-	zt_task zt
-left join zt_project zp on
-	zt.project = zp.id
-	and ZP.DELETED = '0'
-left join zt_module zm on
-	zt.module = zm.id
-	and zm.deleted = '0'
-	and zm.`type` ="story"
-left join zt_product zp1 on
-     zm.root = zp1.id
-     and zp1.deleted = '0'
-left join zt_user zu1
-  on zt.openedBy = zu1.account 
-left join zt_lang zl on
-	zt.type = zl.key
-left join zt_user zu on
-	zt.assignedTo = zu.account
-	and zu.deleted = '0'
-left join zt_lang zl2 on 
-    zu.`role` =zl2.`key` 
-    and zl2.module ='user'
-    and zl2.`section` ='roleList'
-left join zt_dept zd on
-	zu.dept = zd.id
-left join zt_story zs on    /*关联story*/
-	zt.story = zs.id
-	and zs.deleted = '0'
-left join zt_branch zb2 on zs.branch = zb2.id /*取分支名称*/
-left join zt_module zm1 on
-	zm.parent = zm1.id
-	and zm1.deleted = '0'
-left join zt_user zu2
-  on zt.finishedBy = zu2.account 
-left join zt_user zu3
-  on zt.closedBy = zu3.account 
-left join zt_user zu4               /*开发人员*/
-on zt.develuser=zu4.account
- left join 
-(select zb.task,zb.severity,count(zb.id)as BUG数量 from zt_bug zb where task<>0 and deleted ='0' group by zb.task,zb.severity) b
-on zt.id=b.task
-where 
-	 zt.deleted = '0';
+	zt_story zs
+left join zt_branch zb on zb.id = zs.branch 
+left join zt_product zp on zp.id = zs.product
+left join zt_productplan zp2 on zp2.id = zs.plan
+left join zt_module zm  on zm.id = zs.module 
+left join zt_user zu on zu.account = zs.assignedTo 
+left join zt_user zu2 on zu2.account = zs.closedBy 
+left join zt_user zu3 on zu3.account = zs.openedBy 
+left join zt_user zu4 on zu4.account = zs.storyBP   /*需求BP*/
+left join zt_dept zd on zu4.dept = zd.id            /*需求BP组别*/
+left join zt_lang zl on zl.`key` = zs.source and zl.module = 'story' and zl.`section` = 'sourceList' 
+left join zt_lang zl2 on zl2.`key` = zs.stage and zl2.module = 'story' and zl2.`section` = 'stageList' 
+left join zt_projectstory zp3 on zp3.story = zs.id and zp3.product = zs.product 
+left join zt_project zp4 on zp4.id = zp3.project and zp4.deleted = '0'
+left join (select zt.story as story,count(zt.id) as tasknum from zt_task zt 
+where zt.deleted ='0' and zt.story<>0 group by zt.story) b on b.story=zs.id
+left join zt_lang zl_closedReason on zl_closedReason.key=zs.closedReason  and zl_closedReason.module ='story' and zl_closedReason.`section` ='reasonList' /*关闭原因*/
+where zs.deleted ='0' order by zs.id;
 
 
 left Join
