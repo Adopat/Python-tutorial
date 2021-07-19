@@ -168,6 +168,82 @@ flying speed of haiying is 40
 """
 print("=====使用多态，再父类创建一个基类方法=====")
 # 8.创建抽象方法 借助Python内置的abc 模块，使用abstractmethod装饰器，Animal类的改进版，显示的定义基类的此方法为抽象方法，并且明确指明两个继承类需要重写此方法
+print("====创建抽象方法=====")
 import abc
 class Animal():
-    cprop
+    cprop = "我是类上的属性cprop"
+    def __init__(self,name,speed):
+        self.name = name
+        # public 属性 _speed
+        self._speed = speed
+    def __str__(self):
+        return '''Animal({0.name},{0._speed}) is printed
+        name={0.name}
+        speed={0._speed}'''.format(self)
+    # 使用abstractmethod装饰器，变为抽象方法
+    @abc.abstractmethod
+    def getSpeedBehavior(self):
+        pass
+print("=====使用@property检查属性取值=====")
+import abc
+class Animal():
+    cprop = "我是类上的属性cprop"
+    def __init__(self,name,speed):
+        self.name = name
+        # 读
+        @property
+        def _speed(self):
+            return self._speed
+        # 写
+        @_speed.setter
+        def _speed(self, val):
+            if val < 0:
+                return ValueError('speed value is negative')
+            self.__speed = val
+    def __str__(self):
+        return '''Animal({0.name},{0._speed}) is printed
+        name={0.name}
+        speed={0._speed}'''.format(self)
+    # 使用abstractmethod装饰器，变为抽象方法
+    @abc.abstractmethod
+    def getSpeedBehavior(self):
+        pass
+print("=====控制给类添加属性,给实例添加属性，只属于这个单独的实例，为类添加属性后，所有实例具有添加的属性=====")
+class Student(object):
+    # 使用__slots__ 定义这个类只能有哪些属性，不在这个元组里的属性添加都会失败
+    __slots__ = ('name','age')
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+s = Student('xiaoming',100)
+# s.core = 100
+# print(s.core) # 'Student' object has no attribute 'core'
+print("=====链式调用，每个对外公开的方法都返回self,在外面调用时，能形成一条链式调用栈=====")
+class Student(object):
+    __slots__ = ('name','age')
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+    def set_name(self,val):
+        self.name = val
+        return self
+    def set_age(self,val):
+        self.age = val
+        return self
+    def print_info(self):
+        print("name:"+self.name)
+        print("age: "+str(self.age))
+        return self
+# 创建新的实例
+s = Student('xiaoming',100)
+(
+    s
+    .set_name('xiaoming1')
+    .set_age(25)
+    .print_info()
+)
+
+
+
+
+
