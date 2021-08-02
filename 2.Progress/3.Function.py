@@ -73,7 +73,18 @@ def f(a,*b,c=10,**d):
     print(f'a:{a},b:{b},c:{c},d:{d}')
 f(1,2,5,c=10,width=10,height=100) # a:1,b:(2, 5),c:10,d:{'width': 10, 'height': 100} a 为位置参数,b 为可变位置参数,c为默认参数,d 为关键字参数
 
-# 10 slice对象，将切片方法封装
+# 10 slice对象，将切片方法封装,实用性不大
+slice_Fun = slice(1,10,2)
+from random import randint
+list1 = [randint(1,10) for _ in range(10)]
+list1.sort(reverse=False)
+print(list1)
+# slice 对象的使用
+print(list1[slice_Fun])
+# 11. lambda 函数的使用 求列表的最大长度
+def max_len(*k):
+    return max(*k,key=lambda v:len(v))
+print(max_len([1,2,3],[1,2,3,4],[1,2])) # [1, 2, 3, 4]
 
 
 
