@@ -68,12 +68,12 @@ def f2():
 print(list(range(1,10,1)))
 print(list(range(1,10,2)))
 print(list(range(10,1,-1)))
-# 9.Python中函数的五类参数:位置参数，关键字参数，默认参数,可变位置或关键字参数的使用
+# 9.Python中函数的参数类型:位置参数，关键字参数，默认参数,可变位置关键字参数的使用
 def f(a,*b,c=10,**d):
     print(f'a:{a},b:{b},c:{c},d:{d}')
 f(1,2,5,c=10,width=10,height=100) # a:1,b:(2, 5),c:10,d:{'width': 10, 'height': 100} a 为位置参数,b 为可变位置参数,c为默认参数,d 为关键字参数
 
-
+# 10 slice对象，将切片方法封装
 
 
 
