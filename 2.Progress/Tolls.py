@@ -36,4 +36,5 @@ print(hash(int)) # 8795984118269
 #print(hash([1,2,3])) # TypeError: unhashable type: 'list'
 # 5.获取帮助 help()
 # 6.获取用户输入 input()
-# 7.创建迭代器类型 iter()
+# 7.创建迭代器类型 iter() 迭代器适合场景 # https://blog.csdn.net/weixin_38705903/article/details/102870485
+# 8.打开文件 open() 一般建议使用上下文管理器 
