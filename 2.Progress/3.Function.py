@@ -81,7 +81,7 @@ list1.sort(reverse=False)
 print(list1)
 # slice 对象的使用
 print(list1[slice_Fun])
-# 11. lambda 函数的使用 求列表的最大长度
+# 11. lambda 函数的使用 求列表的最大长度，返回最大长度的列表
 def max_len(*k):
     return max(*k,key=lambda v:len(v))
 print(max_len([1,2,3],[1,2,3,4],[1,2])) # [1, 2, 3, 4]
