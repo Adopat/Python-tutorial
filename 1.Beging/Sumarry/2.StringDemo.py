@@ -24,3 +24,23 @@ import textwrap
 words ='ABCDEFG HIJKLMN OPQ RST UVW XYZ '
 r = textwrap.fill(words,7)
 print(r)
+# 7.字符串反转
+# 字符串反转方法一
+print(''.join(reversed("Hello"))) # olleH
+# 字符串反转方法二
+print("Hello"[::-1]) # olleH
+print(list(reversed([1,2,3,4,5]))) # [5, 4, 3, 2, 1]
+# 8.字符串切片
+print("Hello"[1:]) # ello
+print("Hello"[0:2]) # He
+print("Hello"[0:1]) # H
+print("Hello"[:]) # Hello 浅拷贝字符串
+print("Hello"[0::2]) # Hlo 取奇数位置
+print("Hello"[1::2]) # el 取偶数位置
+print(len("Hello")) # 5
+# 9.字符串的字节长度 # 一个英文字母占一个字节，中文字符 在UTF-8中 一个中文字符占 3 字节，在gb2312 和 gbk中一个中文占用两个字节
+print(len("AAAA".encode('utf-8'))) # 4
+print(len("我".encode('utf-8'))) # 3
+print(len("我".encode('gb2312'))) # 2
+print(len("我".encode('gbk'))) # 2
+# Python 正则

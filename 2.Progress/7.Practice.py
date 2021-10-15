@@ -241,3 +241,10 @@ rtn = product('xyz', '12', repeat=3)
 print(list(rtn))
 
 
+#
+print("========测试==========")
+L = [2,-3,3,50]
+L.sort(reverse=True)
+print(sum(L[:2]))
+
+
