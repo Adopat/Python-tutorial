@@ -1,10 +1,11 @@
-#爬取三国演义，并用词云图展示关键信息
+# 爬取三国演义，并用词云图展示关键信息
 import requests
 from fake_useragent import UserAgent
 from requests.exceptions import RequestException
 from bs4 import BeautifulSoup
 from time import sleep
 import random
+
 # def get_one_page(url):
 #     """
 #     获取网页html内容并返回
@@ -47,7 +48,7 @@ import random
 #         f.write(i['title']+'\n'+content_list.text+'\n')
 #     print(i['title']+'爬取完毕')
 #     sleep(random.uniform(5, 10))
-#将三国演义文件生成 词云看看主要内容是什么
+# 将三国演义文件生成 词云看看主要内容是什么
 # import jieba
 # import collections
 # # 加载停用词
@@ -78,15 +79,16 @@ import random
 # data = dict(collections.Counter(data).most_common(10))
 # print(data)
 print('========将切词后的结果生成词云========')
-import jieba,numpy
+import jieba, numpy
 from PIL import Image
 from wordcloud import WordCloud, STOPWORDS
 import collections
-with open('三国演义切词.txt','r',encoding='utf-8') as f:
+
+with open('三国演义切词.txt', 'r', encoding='utf-8') as f:
     words = f.read()
 new_words = ' '.join(jieba.cut(words))
-word_counts  = collections.Counter(new_words) # 统计切词后，每个词出现的次数
-print('前10词:',word_counts.most_common(15))
+word_counts = collections.Counter(new_words)  # 统计切词后，每个词出现的次数
+print('前10词:', word_counts.most_common(15))
 STOPWORDS.add('不')
 STOPWORDS.add('人')
 STOPWORDS.add('之')
@@ -104,7 +106,7 @@ STOPWORDS.add('来')
 wordcloud = WordCloud(width=1000,
                       height=860,
                       margin=2,
-                      background_color='#d4ff80',# 设置背景颜色
+                      background_color='#d4ff80',  # 设置背景颜色
                       font_path=r'C:\Windows\Fonts\STSONG.TTF',
                       stopwords=STOPWORDS)
 wordcloud.generate(new_words)

@@ -3,7 +3,6 @@ import ply.lex as lex, re
 
 
 def extract_table_name_from_sql(sql_str):
-
     # remove the /* */ comments
     q = re.sub(r"/\*[^*]*\*+(?:[^*/][^*]*\*+)*/", "", sql_str)
 
@@ -30,7 +29,8 @@ def extract_table_name_from_sql(sql_str):
 
     return result
 
-sql2="""
+
+sql2 = """
 select
 	zs.id as 需求id,
 	concat('http://172.18.20.83/zentaopdm/www/story-view-',zs.id,'.html') as 需求链接,
@@ -157,5 +157,3 @@ left join zt_module zm5
 on ztm.fiveno = zm5.id;
 """
 print(extract_table_name_from_sql(sql2))
-
-

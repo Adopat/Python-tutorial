@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 from concurrent import futures
 from fake_useragent import UserAgent
 from requests.exceptions import RequestException
+
+
 #
 #
 
@@ -19,7 +21,7 @@ def get_one_page(url):
     headers = {"User-Agent": UserAgent(verify_ssl=False).random}
     try:
         # 获取网页内容，返回html格式数据
-        response = requests.get(url, headers=headers,timeout=100)
+        response = requests.get(url, headers=headers, timeout=100)
         # 通过状态码判断是否获取成功
         if response.status_code == 200:
             # 指定编码，否则中文出现乱码
@@ -28,18 +30,22 @@ def get_one_page(url):
         return None
     except RequestException as e:
         return None
+
+
 # 2.解析博客推荐列表
 def getUsers():
     response = get_one_page('https://www.cnblogs.com/aggsite/UserStats')
-    soup = BeautifulSoup(response,'lxml')
+    soup = BeautifulSoup(response, 'lxml')
     blogger_list = soup.select('#blogger_list>ul>li>a')
     new_BlogList = []
     for blog in blogger_list:
         new_BlogDict = {}
         new_BlogDict['Author'] = blog.string
-        new_BlogDict['url'] = 'http:'+blog.get('href')
+        new_BlogDict['url'] = 'http:' + blog.get('href')
         new_BlogList.append(new_BlogDict)
     return new_BlogList
+
+
 new_BlogList = getUsers()
 for i in new_BlogList:
     print(i)
@@ -121,5 +127,3 @@ for i in new_BlogList:
 #     mutiSpider()
 #
 #     print(json.dumps(blogs,ensure_ascii=False))
-
-

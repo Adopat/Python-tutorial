@@ -11,11 +11,12 @@ def request_douban(url):
     # 设置请求头
     headers = {"User-Agent": UserAgent(verify_ssl=False).random}
     try:
-        response = requests.get(url,headers=headers,timeout=100)
+        response = requests.get(url, headers=headers, timeout=100)
         if response.status_code == 200:
             return response.text
     except requests.RequestException:
         return None
+
 
 # 创建excel
 book = xlwt.Workbook(encoding='utf-8', style_compression=0)

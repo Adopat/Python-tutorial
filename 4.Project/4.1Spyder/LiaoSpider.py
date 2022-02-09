@@ -6,9 +6,10 @@ from requests.exceptions import RequestException
 from bs4 import BeautifulSoup
 import pdfkit
 from PyPDF2 import PdfFileReader, PdfFileWriter
-path_wk = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe' #wkhtmltopdf安装位置
 
-config = pdfkit.configuration(wkhtmltopdf = path_wk)
+path_wk = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'  # wkhtmltopdf安装位置
+
+config = pdfkit.configuration(wkhtmltopdf=path_wk)
 html_template = """
 <!DOCTYPE html>
 <html lang="en">
@@ -110,7 +111,7 @@ def save_pdf(html, filename):
         'outline-depth': 10,
     }
 
-    pdfkit.from_string(html, filename, options=options,configuration=config)
+    pdfkit.from_string(html, filename, options=options, configuration=config)
 
 
 def get_content(url):
@@ -209,6 +210,7 @@ def merge_pdf(infnList, outfn):
     # 删除所有章节文件
     shutil.rmtree(os.path.join(os.path.dirname(__file__), '../gen'))
 
+
 def main():
     html = get_one_page(base_url)
     parse_title_and_url(html)
@@ -216,78 +218,9 @@ def main():
     merge_pdf(chapter_info, os.path.join(
         os.path.dirname(__file__), book_name + '.pdf'))
 
+
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # #!/usr/bin/env python
 # # coding: utf-8

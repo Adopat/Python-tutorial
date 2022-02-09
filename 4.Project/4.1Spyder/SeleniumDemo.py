@@ -1,5 +1,6 @@
 # 1.导入web驱动模块
 from selenium import webdriver
+
 # 2.创建Chrome驱动
 driver = webdriver.Chrome()
 # 3.发送请求

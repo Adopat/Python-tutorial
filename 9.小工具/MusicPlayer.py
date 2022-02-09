@@ -217,7 +217,7 @@ def refleshpic():  # 保存的路径不能有中文，若需要中文则吧/换�
     pic_url = bing_api_dic['bing']['url']
     pic_copyright = bing_api_dic['bing']['copyright']
     pic_res = requests.get(pic_url)
-    pic=pic_res.content
+    pic = pic_res.content
     f = open("./bing_img_cache.png", 'wb')
     f.write(pic)
     f.close()
@@ -246,7 +246,7 @@ def copyright():
     t = """软件原作者为 嘟嘟还没长大
 由 人工智障 完善
 图片来自 必应：每日一图
-本图版权信息 %s"""%(pic_copyright)
+本图版权信息 %s""" % (pic_copyright)
     msg = Message(top, text=t)
     msg.config(font=('times', 24, 'italic'))
     msg.place(x=0, y=0)
@@ -302,7 +302,7 @@ Button(top, text="结束播放", command=stop, width=7, bg="sky blue").place(x=2
 Button(top, text='提醒功能', command=loop, width=10, bg="sky blue").place(x=20, y=325)
 # 使用说明
 Button(top, text="使用说明", command=create, width=10, bg="sky blue").place(x=20, y=370)
-#版权信息
+# 版权信息
 Button(top, text="版权信息", command=copyright, width=10, bg="sky blue").place(x=20, y=415)
 # 音量
 w1 = Scale(top, from_=0, to=100, orient="horizontal", length=75, variable=v, command=printScale, label="音量")
@@ -317,4 +317,3 @@ if len(sys.argv) >= 2:  # 初步判断是否通过拖动音频文件打开程序
 refleshpic()
 
 top.mainloop()
-

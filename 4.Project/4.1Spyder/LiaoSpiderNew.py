@@ -9,8 +9,9 @@ from PyPDF2 import PdfFileReader, PdfFileWriter
 from fake_useragent import UserAgent
 from time import sleep
 import random
-path_wk = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe' #wkhtmltopdf安装位置
-config = pdfkit.configuration(wkhtmltopdf = path_wk)
+
+path_wk = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'  # wkhtmltopdf安装位置
+config = pdfkit.configuration(wkhtmltopdf=path_wk)
 html_template = """
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +28,7 @@ base_url = 'https://www.liaoxuefeng.com/wiki/1016959663602400'
 book_name = ''
 chapter_info = []
 
+
 # 1. 获取数据连接
 def get_one_page(url):
     """
@@ -37,7 +39,7 @@ def get_one_page(url):
     headers = {"User-Agent": UserAgent(verify_ssl=False).random}
     try:
         # 获取网页内容，返回html格式数据
-        response = requests.get(url, headers=headers,timeout=100)
+        response = requests.get(url, headers=headers, timeout=100)
         # 通过状态码判断是否获取成功
         if response.status_code == 200:
             # 指定编码，否则中文出现乱码
@@ -46,6 +48,8 @@ def get_one_page(url):
         return None
     except RequestException as e:
         return None
+
+
 # 2.将目录和链接提取出来
 def parse_title_and_url(html):
     soup = BeautifulSoup(html, 'lxml')
@@ -58,6 +62,8 @@ def parse_title_and_url(html):
         now_book_dict['url'] = 'https://www.liaoxuefeng.com' + i.get('href')
         book_info.append(now_book_dict)
     return book_info
+
+
 # print(book_info)
 # 3. 将html 转为 pdf
 def save_pdf(html, filename):
@@ -85,7 +91,7 @@ def save_pdf(html, filename):
         'outline-depth': 100,
     }
 
-    pdfkit.from_string(html, filename, options=options,configuration=config)
+    pdfkit.from_string(html, filename, options=options, configuration=config)
 
 
 def get_content(url):
@@ -99,12 +105,17 @@ def get_content(url):
     content = soup.find('div', class_='x-wiki-content x-main-content')
     html = html_template.format(content=content)
     return html
+
+
 # 3.保存html 页面
 def saveHtml(file_name, file_content):
     # 注意windows文件命名的禁用符，比如 /
-    with open('D:\\Python-tutorial\\4.Project\\liaoxuefeng\\Python教程\\'+file_name.replace('/', '_') + ".html", "wb") as f:
+    with open('D:\\Python-tutorial\\4.Project\\liaoxuefeng\\Python教程\\' + file_name.replace('/', '_') + ".html",
+              "wb") as f:
         # 写文件用bytes而不是str，所以要转码
         f.write(file_content.encode(encoding='utf-8'))
+
+
 def main():
     html = get_one_page(base_url)  # 1.获取首页信息
     book_info = parse_title_and_url(html)  # 2.获取目录和链接信息
@@ -113,10 +124,9 @@ def main():
         url = chapter['url']
         html = get_content(url)
         # html_to_pdf(html,'D:\\Python-tutorial\\4.Project\\liaoxuefeng\\Python教程\\'+ctitle+".pdf")
-        saveHtml(ctitle,html)
+        saveHtml(ctitle, html)
         print(f'{ctitle}保存成功')
-if __name__ =='__main__':
+
+
+if __name__ == '__main__':
     main()
-
-
-

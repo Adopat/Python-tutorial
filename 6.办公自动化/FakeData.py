@@ -17,7 +17,6 @@ def build_data(file_path, data_count):
     end = datetime.now()
     print('耗时:' + str((end - start).seconds) + "s")
 
-
 ##build_data('user.txt', 5000000)
 
 # 利用多线程 生成数据 https://blog.csdn.net/mathcoder23/article/details/103544929?spm=1001.2014.3001.5501
