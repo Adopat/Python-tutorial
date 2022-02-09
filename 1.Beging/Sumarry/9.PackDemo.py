@@ -9,6 +9,7 @@
 # 就当前文件目录，我们两次便定位到根目录 classdemo
 import os
 import sys
+
 '''
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # __file__获取执行文件相对路径，整行为取上一级的上一级目录

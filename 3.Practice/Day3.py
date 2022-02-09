@@ -73,4 +73,3 @@ Write a program that computes the value of a+aa+aaa+aaaa with a given digit as t
 '''
 number = input("please input a number")
 print(eval('int(number)+int(number*2)+int(number*3)+int(number*4)'))
-

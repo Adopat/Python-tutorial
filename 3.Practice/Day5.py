@@ -68,10 +68,15 @@ Write a method which can calculate square value of number
 #     return x**2
 # print(square.__doc__)
 print("=====Question25=====")
+
+
 class Car:
     name = "Car"
-    def __init__(self,name=None):
+
+    def __init__(self, name=None):
         self.name = name
+
+
 honda = Car("honda")
 print(f'{Car.name} name is {honda.name}')
 toyota = Car()

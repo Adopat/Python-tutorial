@@ -29,7 +29,7 @@ print("=====Question40=====")
 Write a program which accepts a string as input to print "Yes" if the string is "yes" or "YES" or "Yes", otherwise print "No".
 '''
 str = input()
-if str in ('YES','yes','Yes'):
+if str in ('YES', 'yes', 'Yes'):
     print('YES')
 else:
     print('No')

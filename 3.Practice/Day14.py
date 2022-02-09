@@ -27,7 +27,7 @@ print("=====Question68=====")
 '''
 Please generate a random float where the value is between 10 and 100 using Python module.
 '''
-#生成随机数#
+# 生成随机数#
 # from random import *
 # print(uniform(10,100))
 print("=====Question69=====")
@@ -41,5 +41,6 @@ print("=====Question70=====")
 Please write a program to output a random even number between 0 and 10 inclusive using random module and list comprehension.
 '''
 import random
-lst = [i for i in range(0,10,2)]
+
+lst = [i for i in range(0, 10, 2)]
 print(random.choice(lst))

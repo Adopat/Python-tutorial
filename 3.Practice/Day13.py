@@ -53,6 +53,6 @@ print("=====Question65=====")
 '''
 Please write assert statements to verify that every number in the list [2,4,6,8] is even.
 '''
-data = [2,4,5,6]
+data = [2, 4, 5, 6]
 for i in data:
-    assert i%2 ==0,"{0} is not an even number".format(i)
+    assert i % 2 == 0, "{0} is not an even number".format(i)

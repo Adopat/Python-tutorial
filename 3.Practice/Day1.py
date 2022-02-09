@@ -4,18 +4,22 @@ Write a program which will find all such numbers which are divisible by 7 but ar
 between 2000 and 3200 (both included).
 The numbers obtained should be printed in a comma-separated sequence on a single line.
 '''
-print(*[i for i in range(2000,3201) if i%7==0 and i%5!=0],sep=",")
+print(*[i for i in range(2000, 3201) if i % 7 == 0 and i % 5 != 0], sep=",")
 print("======Question2======")
 '''
 Write a program which can compute the factorial of a given numbers.
 The results should be printed in a comma-separated sequence on a single line.
 Suppose the following input is supplied to the program: 8 Then, the output should be:40320
 '''
+
+
 def fact(n):
     if n == 1:
         return 1
     else:
-        return n * fact(n-1)
+        return n * fact(n - 1)
+
+
 print(fact(8))
 print("=====Question3=====")
 '''
@@ -44,14 +48,19 @@ getString: to get a string from console input
 printString: to print the string in upper case.
 Also please include simple test function to test the class methods.
 '''
+
+
 class StringFun():
     def __init__(self):
         pass
+
     def getString(self):
         self.s = input()
+
     def printString(self):
         print(self.s.upper())
+
+
 str1 = StringFun()
 str1.getString()
 str1.printString()
-

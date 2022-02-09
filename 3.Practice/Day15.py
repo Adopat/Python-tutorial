@@ -31,4 +31,5 @@ print("=====Question75=====")
 Please write a program to randomly print a integer number between 7 and 15 inclusive.
 '''
 from random import *
-print(randint(7,16))
+
+print(randint(7, 16))

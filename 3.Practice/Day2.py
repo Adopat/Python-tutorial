@@ -53,6 +53,6 @@ sequence = input().strip().split()
 for s in sequence:
     if sequence.count(s) > 1:
         sequence.remove(s)
-print("排序前：",sequence)
+print("排序前：", sequence)
 sequence.sort()
-print("去除重复值排序后的结果："," ".join(sequence))
+print("去除重复值排序后的结果：", " ".join(sequence))

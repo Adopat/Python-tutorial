@@ -1,13 +1,13 @@
 # 掌握常用的Python 编程习惯
 # 1.理解 list 中 [] 和 None 的区别
 print('======')
-print(type(None)) # <class 'NoneType'> 空对象
-print(type([])) # <class 'list'> 空列表
+print(type(None))  # <class 'NoneType'> 空对象
+print(type([]))  # <class 'list'> 空列表
 L1, L2 = None, []
-print(bool(L1 == None)) # True
-print(bool(L2 == [])) # True
-print(bool(L1 is None)) # True
-print(bool(L2 is None)) # False
+print(bool(L1 == None))  # True
+print(bool(L2 == []))  # True
+print(bool(L1 is None))  # True
+print(bool(L2 is None))  # False
 # 2. 多余的空格
 print('=====函数赋值以下符合习惯=====')
 # foo(a, b=0, {'a':1, 'b':2}, (10,))

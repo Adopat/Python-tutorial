@@ -28,6 +28,8 @@ Define a class named American which has a static method called printNationality.
 静态方法
 注意静态方法和类方法的区别，两者都可以直接被类调用，类方法有参数cls,静态方法不存在参数
 '''
+
+
 class American:
     # def __init__(self):
     #     pass
@@ -35,6 +37,7 @@ class American:
     def printNationality():
         print("I am a American")
 
+
 american = American()
-american.printNationality() # 如果没有@staticmethod 修饰这个方法不会运行
+american.printNationality()  # 如果没有@staticmethod 修饰这个方法不会运行
 American.printNationality()
