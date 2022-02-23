@@ -1,2 +1,17 @@
 WARNING:root:An example message.
 WARNING:root:Another message
+WARNING:root:An example message.
+WARNING:root:Another message
+INFO:root:Logging app started
+WARNING:root:An example logging message.
+WARNING:root:Another log message
+WARNING:root:An example message.
+WARNING:root:Another message
+INFO:root:Logging app started
+WARNING:root:An example logging message.
+WARNING:root:Another log message
+WARNING:root:An example message.
+WARNING:root:Another message
+INFO:root:Logging app started
+WARNING:root:An example logging message.
+WARNING:root:Another log message
