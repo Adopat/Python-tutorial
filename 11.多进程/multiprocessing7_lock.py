@@ -9,6 +9,7 @@ def job(v, num, l):
     l.acquire()
     for _ in range(10):
         time.sleep(0.1)
+        # 获取共享内存变量
         v.value += num
         print(v.value)
     l.release()
@@ -16,6 +17,7 @@ def job(v, num, l):
 
 def multicore():
     l = mp.Lock()
+    # 创建共享存变量 
     v = mp.Value('i', 0)
     p1 = mp.Process(target=job, args=(v, 1, l))
     p2 = mp.Process(target=job, args=(v, 3, l))
