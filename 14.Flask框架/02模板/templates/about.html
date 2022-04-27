@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+    关于我
+{% endblock %}
+
+{% block body %}
+<h1>我们是知了。{{ username|length }}</h1>
+<div>{{ books }}</div>
+<div>{{ books|join("//") }}</div>
+{% endblock %}
