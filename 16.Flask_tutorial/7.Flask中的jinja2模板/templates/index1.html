@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常见的分界符</title>
+</head>
+<body>
+<!--  变量-->
+  {{ variable }}
+<!--for 循环-->
+  <ul>
+  {% for item in seq %}
+    <li>{{ item }}</li>
+  {% endfor %}
+  </ul>
+
+  <ul>
+  # for item in seq
+    <li>{{ item }}</li>
+  # endfor
+  </ul>
+<!--注释-->
+  {# this is comment #}
+  ## this is comment
+</body>
+</html>

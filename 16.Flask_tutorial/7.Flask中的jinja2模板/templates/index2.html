@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常见的分界符</title>
+</head>
+<body>
+{{ string |upper }}
+ <ul>
+  {% for list in list1 %}
+     {% if list is odd %}
+     <li>{{ list }}</li>
+     {% endif %}
+  {% endfor %}
+  </ul>
+<ol>
+    <li>{{ list1[0] }}</li>
+    <li>{{ list1[1] }}</li>
+    <li>{{ list1[2] }}</li>
+    <li>{{ list1[3] }}</li>
+</ol>
+<ol>
+    <li>{{ dic['name'] }}</li>
+    <li>{{ dic['age'] }}</li>
+</ol>
+
+</body>
+</html>

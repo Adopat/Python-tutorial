@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器的使用</title>
+</head>
+<body>
+<!--字符串操作-->
+{# 首字母大写 #}
+{{ 'flask'|capitalize}}
+<br>
+{# 每个单词首字母大写 #}
+{{ 'flask world '|title}}
+<br>
+{{ 'flask'|upper}}
+<br>
+{{ 'flask'|lower}}
+<br>
+{{ 'flask'|reverse}}
+<br>
+{{ 'My name is %s %d years old'|format('justin',12)}}
+<br>
+{{'hello world'|replace('world','word')}}
+<!--列表操作-->
+<br>
+{#取出列表第一个元素#}
+{{[1,2,3,4,5]|first}}
+<br>
+{#取出列表第一个元素#}
+{{[1,2,3,4,5]|last}}
+<br>
+{#取出列表的长度#}
+{{[1,2,3,4,5]|length}}
+<br>
+{#取出列表的和#}
+{{[1,2,3,4,5]|sum}}
+<br>
+{#列表排序，默认升序#}
+{{[1,3,2,6,5,4]|sort}}
+<br>
+{#列表转字符串#}
+{{[1,2,3,4,5,6]|join()}}
+<br>
+<!--其他常用操作-->
+<br>
+<!--去除变量中的html 标签-->
+{{'<h1>hello world </h1>'|striptags}}
+<br>
+<!--将变量 input 中的 < > 等符号转义成 HTML 中的符号，例如：-->
+{{'<h1>hello hello 666</h1>'|escape}}
+<br>
+{{'2>1'}}
+<br>
+<!--default 设置默认值-->
+{{ gender|default('male')}}
+<br>
+<!--自建过滤器-->
+<h2>increase {{input}} = {{ input | increase }}</h2>
+<h2>decrease {{input}} = {{ input | decrease }}</h2>
+</body>
+</html>
