@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<h2>查询数据</h2>
+<form action="/query" method="post">
+    <input type="submit" value="查询">
+</form>
+<br>
+<h2>插入数据</h2>
+<form action="/insert" method="post">
+    <input type="text" name="key" placeholder="请输入key">
+    <input type="text" name="value" placeholder="请输入value">
+    <input type="submit" value="插入">
+</form>
+<br>
+<h2>批量插入数据</h2>
+<form action="/insertMulti" method="post">
+    <input type="text" name="key1" placeholder="请输入key">
+    <input type="text" name="value1" placeholder="请输入value">
+    <br>
+    <input type="text" name="key2" placeholder="请输入key">
+    <input type="text" name="value2" placeholder="请输入value">
+    <input type="submit" value="插入">
+</form>
+<br>
+<h2>删除数据</h2>
+<form action="/delete" method="post">
+    <input type="text" name="key" placeholder="请输入key">
+    <input type="submit" value="删除">
+</form>
+<br>
+<h2>删除所有数据</h2>
+<form action="/deleteAll" method="post">
+    <input type="submit" value="删除">
+</form>
+<br>
+<br>
+<h2>更新数据</h2>
+<form action="/update" method="post">
+    <input type="text" name="key" placeholder="请输入key">
+    <input type="text" name="value" placeholder="value">
+    <input type="submit" value="更新">
+</form>
+</body>
+</html>
