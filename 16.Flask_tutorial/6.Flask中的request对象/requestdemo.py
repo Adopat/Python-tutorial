@@ -61,7 +61,7 @@ def get_form():
         return 'login fail'
 
 
-# 4.解析json 数据
+# 4.解析json 数据 request.json request.get_json() 区别
 @app.route('/api/addUser', methods=['post'])
 def get_json():
     name = request.get_json().get('name')
